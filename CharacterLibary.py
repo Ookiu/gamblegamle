@@ -18,12 +18,6 @@ class entity:
     def assign_hp(self,hp):
         self.hp = hp
 
-    def make_character():
-        pass
-
-    def make_enemy():
-        pass
-
 class Character(entity):
     def __init__(self,name,hp,atk,rarity):
         super().__init__(name,hp,atk)
@@ -36,38 +30,40 @@ class Character(entity):
         return self.rarity
     
     @staticmethod #because they dont use self
-    def Save_Character(character,filename="CharacterList.json"): 
+    def Save_Character(character, filename="CharacterList.json"): 
         try:
             with open(filename, 'r') as characterList:
                 file = json.load(characterList)
         except (FileNotFoundError, json.JSONDecodeError):
             file = []
-
-        if not any(char["name"] == character.name for char in file):
-            new_character = {
-                "name": character.name,
-                "hp": character.hp,
-                "atk": character.atk,
-                "rarity": character.get_rarity()}
-            file.append(new_character)
+        if any(char["name"] == character.name for char in file):
+            print(f"Character name '{character.name}' is already taken.")
+            return
+        new_character = {
+            "name": character.name,
+            "hp": character.hp,
+            "atk": character.atk,
+            "rarity": character.get_rarity()}
+        file.append(new_character)
+        with open(filename, 'w') as characterList:
+            json.dump(file, characterList, indent=4)
+        print(f"Character '{character.name}' has been saved.")
             
-            with open(filename, 'w') as characterList:
-                json.dump(file, characterList, indent=4)
-
     def Update_existing_character(character,filename="CharacterList.json"): 
         try:
             with open(filename, 'r') as characterList:
                 file = json.load(characterList)
         except (FileNotFoundError, json.JSONDecodeError):
             print("File not found or corrupted.")
+            return
         
         Character_found = False
         for char in file:
             if char["name"]== character.name:
-                char["name"] == character.name
-                char["hp"] == character.hp
-                character["atk"] == character.atk
-                character["rarity"] == character.get_rarity()
+                char["name"] = character.name
+                char["hp"] = character.hp
+                character["atk"] = character.atk
+                character["rarity"] = character.get_rarity()
             Character_found = True
             break
         if not Character_found:
@@ -101,9 +97,9 @@ class Character(entity):
             else:
                 rarity3.append({"name": name, "rarity": rarity})
 
-        sorted(rarity3, key=lambda x: x["name"])
-        sorted(rarity4, key=lambda x: x["name"])
-        sorted(rarity5, key=lambda x: x["name"])
+        rarity3 = sorted(rarity3, key=lambda x: x["name"])
+        rarity4 = sorted(rarity4, key=lambda x: x["name"])
+        rarity5 = sorted(rarity5, key=lambda x: x["name"])
         print("Rarity 3:", rarity3)
         print("Rarity 4:", rarity4)
         print("Rarity 5:", rarity5)
@@ -130,17 +126,19 @@ class Enemy(entity):
                 file = json.load(enemyList)
         except (FileNotFoundError, json.JSONDecodeError):
             file = []
-
-        if not any(enemy["name"] == enemy.name for enemy in file):
-            new_enemy = {
-                "name": enemy.name,
-                "hp": enemy.hp,
-                "atk": enemy.atk,
-                "type": enemy.get_type()}
-            file.append(new_enemy)
-            
-            with open(filename, 'w') as enemyList:
-                json.dump(file, enemyList, indent=4)
+        if any(e["name"] == enemy.name for e in file):
+            print(f"Enemy name '{enemy.name}' is already taken.")
+            return
+        new_enemy = {
+            "name": enemy.name,
+            "hp": enemy.hp,
+            "atk": enemy.atk,
+            "type": enemy.get_type()}
+        file.append(new_enemy)
+        
+        with open(filename, 'w') as enemyList:
+            json.dump(file, enemyList, indent=4)
+            print("Enemy name taken.")
 
     @staticmethod
     def Update_existing_enemy(enemy, filename="EnemyList.json"):

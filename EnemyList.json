@@ -1,0 +1,8 @@
+[
+    {
+        "name": "wolf",
+        "hp": 2000,
+        "atk": 50,
+        "type": "normal"
+    }
+]

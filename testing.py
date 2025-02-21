@@ -3,5 +3,5 @@ from CharacterLibary import Enemy
 from CharacterLibary import Actions
 import json
 
-rarity3, rarity4, rarity5 = Character.sort_rarity()
-
+wolf = Enemy("wolf",2000,50,"normal")
+Enemy.Update_existing_enemy(wolf)

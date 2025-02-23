@@ -11,3 +11,4 @@ elif selection =="Enemy":
     print("Select Enemy")
 else:
     print(f"Not an avilable option, please select Character or Enemy.\n *your input is case sensitive*")
+

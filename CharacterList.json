@@ -16,5 +16,17 @@
         "hp": 800,
         "atk": 200,
         "rarity": 3
+    },
+    {
+        "name": "Bonnie",
+        "hp": "2000",
+        "atk": "350",
+        "rarity": "5"
+    },
+    {
+        "name": "Plague Maiden",
+        "hp": "5000",
+        "atk": "450",
+        "rarity": "noe"
     }
 ]

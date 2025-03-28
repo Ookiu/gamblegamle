@@ -1,6 +1,7 @@
 from CharacterLibary import Character
 from CharacterLibary import Enemy
 import json
+import random
 def sort_rarity(filename="CharacterList.json"):
         rarity5 = []
         rarity4 = []
@@ -27,7 +28,12 @@ def sort_rarity(filename="CharacterList.json"):
         rarity3 = sorted(rarity3, key=lambda x: x["name"])
         rarity4 = sorted(rarity4, key=lambda x: x["name"])
         rarity5 = sorted(rarity5, key=lambda x: x["name"])
-        print("Rarity 3:", rarity3)
-        print("Rarity 4:", rarity4)
-        print("Rarity 5:", rarity5)
         return rarity3, rarity4, rarity5
+
+Character_Obtained = []
+rarity3, rarity4, rarity5 = sort_rarity() #i need to store the result otherwise it wont work
+Weightedlist=[rarity5,rarity4,rarity3]
+prbability = [0.1,0.2,0.7]
+selected_rarity_list = random.choices(Weightedlist, prbability)[0]
+selected_character = random.choice(selected_rarity_list)
+print(selected_character)
